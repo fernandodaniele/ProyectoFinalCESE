@@ -1,0 +1,43 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/fernando/repositorios/PruebaESP-VSC/build/CMakeFiles/bootloader"
+		},
+		{
+			"file" : "/home/fernando/repositorios/PruebaESP-VSC/build/CMakeFiles/bootloader.rule"
+		},
+		{
+			"file" : "/home/fernando/repositorios/PruebaESP-VSC/build/CMakeFiles/bootloader-complete.rule"
+		},
+		{
+			"file" : "/home/fernando/repositorios/PruebaESP-VSC/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule"
+		},
+		{
+			"file" : "/home/fernando/repositorios/PruebaESP-VSC/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule"
+		},
+		{
+			"file" : "/home/fernando/repositorios/PruebaESP-VSC/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule"
+		},
+		{
+			"file" : "/home/fernando/repositorios/PruebaESP-VSC/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule"
+		},
+		{
+			"file" : "/home/fernando/repositorios/PruebaESP-VSC/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule"
+		},
+		{
+			"file" : "/home/fernando/repositorios/PruebaESP-VSC/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule"
+		},
+		{
+			"file" : "/home/fernando/repositorios/PruebaESP-VSC/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"bootloader"
+		],
+		"name" : "bootloader"
+	}
+}

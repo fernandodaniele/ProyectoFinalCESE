@@ -1,0 +1,20 @@
+{
+    "project_name":       "bootloader",
+    "project_path":       "/home/fernando/esp-idf/components/bootloader/subproject",
+    "build_dir":          "/home/fernando/repositorios/PruebaESP-VSC/build/bootloader",
+    "config_file":        "/home/fernando/repositorios/PruebaESP-VSC/sdkconfig",
+    "config_defaults":    "",
+    "app_elf":            "bootloader.elf",
+    "app_bin":            "bootloader.bin",
+    "git_revision":       "v4.1-dirty",
+    "target":             "esp32",
+    "phy_data_partition": "",
+    "monitor_baud" :      "115200",
+    "monitor_toolprefix": "xtensa-esp32-elf-",
+    "config_environment" : {
+        "COMPONENT_KCONFIGS" : "/home/fernando/esp-idf/components/efuse/Kconfig;/home/fernando/esp-idf/components/esp32/Kconfig;/home/fernando/esp-idf/components/esp_common/Kconfig;/home/fernando/esp-idf/components/log/Kconfig;/home/fernando/esp-idf/components/spi_flash/Kconfig",
+        "COMPONENT_KCONFIGS_PROJBUILD" : "/home/fernando/esp-idf/components/bootloader/Kconfig.projbuild;/home/fernando/esp-idf/components/esptool_py/Kconfig.projbuild;/home/fernando/esp-idf/components/partition_table/Kconfig.projbuild"
+    },
+    "build_components" : [ "bootloader", "bootloader_support", "efuse", "esp32", "esp_common", "esp_rom", "esptool_py", "log", "main", "micro-ecc", "partition_table", "soc", "spi_flash", "xtensa", "" ],
+    "build_component_paths" : [ "/home/fernando/esp-idf/components/bootloader", "/home/fernando/esp-idf/components/bootloader_support", "/home/fernando/esp-idf/components/efuse", "/home/fernando/esp-idf/components/esp32", "/home/fernando/esp-idf/components/esp_common", "/home/fernando/esp-idf/components/esp_rom", "/home/fernando/esp-idf/components/esptool_py", "/home/fernando/esp-idf/components/log", "/home/fernando/esp-idf/components/bootloader/subproject/main", "/home/fernando/esp-idf/components/bootloader/subproject/components/micro-ecc", "/home/fernando/esp-idf/components/partition_table", "/home/fernando/esp-idf/components/soc", "/home/fernando/esp-idf/components/spi_flash", "/home/fernando/esp-idf/components/xtensa", "" ]
+}
