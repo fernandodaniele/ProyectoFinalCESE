@@ -8,6 +8,7 @@
 #include "driver/uart.h"
 #include "string.h"
 #include "driver/gpio.h"
+#include <stdint.h>
 
 void rx_task(void *arg);
 void iniciarUart(void);

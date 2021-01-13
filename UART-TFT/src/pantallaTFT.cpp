@@ -216,18 +216,17 @@ void pantallaCalibrar (){
 
 //Consulta si se presionó algún botón en la pantalla de elección de buffer
 int tactilCalibrar(){
-
-  int tempMV = ph;
+  float tempMV = ph;
   //Acá tengo que leer el valor del electrodo desde el ESP
   if(leerElectrodo(&ph)==0){
       tft.print("Error al leer el electrodo... ");
   }
-  tft.setCursor(120,100);
+  tft.setCursor(100,110);
   tft.setTextColor(BLACK);
   tft.print(tempMV);
   tft.print(" mV");
   //Acá tengo que mostrar en pantalla ese valor leido
-  tft.setCursor(100,150);
+  tft.setCursor(100,110);
   tft.setTextColor(WHITE);
   tft.print(ph);
   tft.print(" mV");

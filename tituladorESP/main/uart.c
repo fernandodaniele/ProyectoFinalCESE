@@ -1,28 +1,33 @@
 #include "uart.h"
+#include "flash.h"
 
 static const int RX_BUF_SIZE = 1024;
 
 #define TXD_PIN (GPIO_NUM_4)
 #define RXD_PIN (GPIO_NUM_5)
 
+extern int valorAdc;
+extern portMUX_TYPE myMutex;
+extern int motorBomba;
+
 int sendData(const char* data);
 
-char bufferA[5];
-int bufferAInt = 400;
-char bufferB[5];
-int bufferBInt = 700;
-char bufferC[5];
-int bufferCInt = 1000;
-char electrodoA[5];
-int electrodoAInt = 500;
-char electrodoB[5];
-int electrodoBInt = 750;
-char electrodoC[5];
-int electrodoCInt = 1100;
-char electrodoStr[5];
-int electrodoVal = 800;
-char volumenStr[5];
-int volumenInt = 60;
+char bufferA[7];
+int16_t bufferAInt = 400;
+char bufferB[7];
+int16_t bufferBInt = 700;
+char bufferC[7];
+int16_t bufferCInt = 1000;
+char electrodoA[7];
+int16_t electrodoAInt = 500;
+char electrodoB[7];
+int16_t electrodoBInt = 750;
+char electrodoC[7];
+int16_t electrodoCInt = 1100;
+char electrodoStr[7];
+int16_t electrodoVal = 800;
+char volumenStr[7];
+int16_t volumenCorte = 60;
 
 void iniciarUart(void) {
     const uart_config_t uart_config = {
@@ -61,7 +66,7 @@ void rx_task(void *arg)
 			switch (data[0])
 			{
             case 'E':
-                sprintf(electrodoStr,"%d",electrodoVal);
+                sprintf(electrodoStr,"%d",valorAdc);
                 sendData (electrodoStr); //acá seria el valor del electrodo
                 break;
 			case 'W':
@@ -75,6 +80,10 @@ void rx_task(void *arg)
                         }
                         bufferAInt = atoi (bufferA);
                         sendData("OK");
+                        if(guardarFlash("BUFFERA", bufferAInt))
+                        {
+                            ESP_LOGI(RX_TASK_TAG, "%d Guardado en Flash", bufferAInt);
+                        }
                         break;
                     case 'B':
                         for(int i = 2; i<rxBytes; i++)
@@ -83,6 +92,10 @@ void rx_task(void *arg)
                         }
                         bufferBInt = atoi (bufferB);
                         sendData("OK");
+                        if(guardarFlash("BUFFERB", bufferBInt))
+                        {
+                            ESP_LOGI(RX_TASK_TAG, "%d Guardado en Flash", bufferBInt);
+                        }
                         break;
                     case 'C':
                         for(int i = 2; i<rxBytes; i++)
@@ -91,13 +104,17 @@ void rx_task(void *arg)
                         }
                         bufferCInt = atoi (bufferC);
                         sendData("OK");
+                        if(guardarFlash("BUFFERC", bufferCInt))
+                        {
+                            ESP_LOGI(RX_TASK_TAG, "%d Guardado en Flash", bufferCInt);
+                        }
                         break;
                     case 'V':
                         for(int i = 2; i<rxBytes; i++)
                         {
                             volumenStr [i-2] = data [i];
                         }
-                        volumenInt = atoi (volumenStr);
+                        volumenCorte = atoi (volumenStr);
                         sendData("OK");
                         break;
                     default:
@@ -110,22 +127,34 @@ void rx_task(void *arg)
                     switch (data[1])
                     {
                     case 'A':
-                        sprintf(bufferA,"%d",bufferAInt);
+                        if(leerFlash("BUFFERA", &bufferAInt))
+                        {
+                            ESP_LOGI(RX_TASK_TAG, "%d Guardado en Flash", bufferAInt);
+                        }
+                        sprintf(bufferA,"%i",bufferAInt);
                         sendData (bufferA);
                         ESP_LOGI(RX_TASK_TAG, "Send data: '%s'", bufferA);
                         break;
                     case 'B':
+                        if(leerFlash("BUFFERB", &bufferBInt))
+                        {
+                            ESP_LOGI(RX_TASK_TAG, "%d Guardado en Flash", bufferBInt);
+                        }
                         sprintf(bufferB,"%d",bufferBInt);
                         sendData (bufferB);
                         ESP_LOGI(RX_TASK_TAG, "Send data: '%s'", bufferB);
                         break;
                     case 'C':
+                        if(leerFlash("BUFFERC", &bufferCInt))
+                        {
+                            ESP_LOGI(RX_TASK_TAG, "%d Guardado en Flash", bufferCInt);
+                        }
                         sprintf(bufferC,"%d",bufferCInt);
                         sendData (bufferC);
                         ESP_LOGI(RX_TASK_TAG, "Send data: '%s'", bufferC);
                         break;
                     case 'V':
-                        sprintf(volumenStr,"%d",volumenInt);
+                        sprintf(volumenStr,"%d",volumenCorte);
                         sendData (volumenStr);
                         break;
                     default:
@@ -138,16 +167,28 @@ void rx_task(void *arg)
                     switch (data[1])
                     {
                     case 'A':
+                        if(leerFlash("CALIBREA", &electrodoAInt))
+                        {
+                            ESP_LOGI(RX_TASK_TAG, "%d Guardado en Flash", electrodoAInt);
+                        }
                         sprintf(electrodoA,"%d",electrodoAInt);
                         sendData (electrodoA);
                         //ESP_LOGI(RX_TASK_TAG, "Send data: '%s'", electrodoA);
                         break;
                     case 'B':
+                        if(leerFlash("CALIBREB", &electrodoBInt))
+                        {
+                            ESP_LOGI(RX_TASK_TAG, "%d Guardado en Flash", electrodoBInt);
+                        }
                         sprintf(electrodoB,"%d",electrodoBInt);
                         sendData (electrodoB);
                         //ESP_LOGI(RX_TASK_TAG, "Send data: '%s'", electrodoB);
                         break;
                     case 'C':
+                        if(leerFlash("CALIBREC", &electrodoCInt))
+                        {
+                            ESP_LOGI(RX_TASK_TAG, "%d Guardado en Flash", electrodoCInt);
+                        }
                         sprintf(electrodoC,"%d",electrodoCInt);
                         sendData (electrodoC);
                         //ESP_LOGI(RX_TASK_TAG, "Send data: '%s'", electrodoC);
@@ -162,18 +203,24 @@ void rx_task(void *arg)
                     switch (data[1])
                     {
                     case 'A':
-                        //grabar valor de bufferA en memoria
-                        electrodoAInt++;
+                        if(guardarFlash("CALIBREA", valorAdc))
+                        {
+                            ESP_LOGI(RX_TASK_TAG, "%d Guardado en Flash", valorAdc);
+                        }
                         sendData("OK");
                         break;
                     case 'B':
-                        //grabar valor de bufferB en memoria
-                        electrodoBInt++;
+                        if(guardarFlash("CALIBREB", valorAdc))
+                        {
+                            ESP_LOGI(RX_TASK_TAG, "%d Guardado en Flash", valorAdc);
+                        }
                         sendData("OK");
                         break;
                     case 'C':
-                        //grabar valor de bufferC en memoria
-                        electrodoCInt++;
+                        if(guardarFlash("CALIBREC", valorAdc))
+                        {
+                            ESP_LOGI(RX_TASK_TAG, "%d Guardado en Flash", valorAdc);
+                        }
                         sendData("OK");
                         break;
                     default:
@@ -189,10 +236,12 @@ void rx_task(void *arg)
                     case 'I':
                         //iniciar titualacion
                         sendData("OK");
+                        motorBomba = 1;
                         break;
                     case 'F':
                         //finalizar titulacion
                         sendData("OK");
+                        motorBomba = 0;
                         break;
                     default:
                         break;

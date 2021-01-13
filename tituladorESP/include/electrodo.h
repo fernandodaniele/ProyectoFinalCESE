@@ -2,5 +2,6 @@
 #define ELECTRODO_H
 
 void electrodo_task (void *arg);
+void tareaEjemploPWM(void *arg);
 
 #endif

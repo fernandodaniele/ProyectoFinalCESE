@@ -15,13 +15,16 @@
 #include "driver/gpio.h"
 #include "uart.h"
 #include "electrodo.h"
+#include "flash.h"
 
 
 void app_main(void)
 {
     iniciarUart();
+    iniciarFlash();
     xTaskCreate(rx_task, "uart_rx_task", 1024*2, NULL, configMAX_PRIORITIES-1, NULL);
     xTaskCreate(electrodo_task, "electrodo_task", 1024*2, NULL, configMAX_PRIORITIES, NULL);
+    xTaskCreate(tareaEjemploPWM, "ejemploPWM", 1024, NULL, 5, NULL);
 }
 
 

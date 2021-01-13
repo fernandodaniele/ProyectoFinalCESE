@@ -141,7 +141,7 @@ int leerElectrodo(float *val){
     }
     String temp = Serial1.readString();
     *val = temp.toFloat();
-    *val = *val/100;
+    *val = *val/1.24;
     return 1;
 }
 
