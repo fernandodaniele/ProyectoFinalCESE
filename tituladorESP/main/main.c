@@ -16,10 +16,11 @@
 #include "uart.h"
 #include "electrodo.h"
 #include "flash.h"
-
+#include "sd.h"
 
 void app_main(void)
 {
+    inicializarSD();
     iniciarUart();
     iniciarFlash();
     xTaskCreate(rx_task, "uart_rx_task", 1024*2, NULL, configMAX_PRIORITIES-1, NULL);

@@ -70,13 +70,25 @@ Se integró el ejemplo del PWM con el programa principal. Esto puede cambiar dep
 --Dedicado 1 h
 
 ****
+Se agrega lectura/guardado en flash de los valores de buffers configurados y calibrados
+Se corrigen errores
+--Dedicado 3 h
+
+****
+Se probó ejemplo de SD
+--Dedicado 1 h
+
+****
+Se incorporó la parte de SD como funciones
+--Dedicado 2 h
 
 
---Guardar valores en eeprom/flash
---SD
 --Wifi
 --control del motor agitador
 --Ver bien como hacer la medicion de volumen
+--medicion de corriente de motores
+--SD (hacer el guardado en el momento que sea necesario)
+--Hacer placa
 
 
 *************************************************************************************************************************************
