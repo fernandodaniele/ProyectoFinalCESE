@@ -27,7 +27,7 @@ void pantallaInicial();
  *  @li @c 3 Botón de configurar
  *  @li @c 4 Botón de WiFi
  */
-int tactilInicial();
+int consultaTactil();
 
 /**
  * @brief Muestra la pantalla con el valor actual de cada buffer y da
@@ -35,18 +35,6 @@ int tactilInicial();
  *        realizar la calibración
  */
 void pantallaElegirBuffer();
-
-/**
- * @brief Consulta si se presionó algún botón en la pantalla de elección de buffer
- * 
- * @return int 
- *  @li @c 0 No se presionó ningún boton
- *  @li @c 1 Botón de buffer 1
- *  @li @c 2 Botón de buffer 2
- *  @li @c 3 Botón de buffer 3
- *  @li @c 4 Botón de regresar
- */
-int tactilElegirBuffer();
 
 /**
  * @brief Muestra la pantalla con el valor actual de ph que será guardado como 
@@ -85,34 +73,7 @@ int tactilMedir();
  * el volumen de corte y para ejecutar la limpieza de la bomba
  * 
  */
-void pantallaConfigurar();
-
-/**
- * @brief Consulta si se presionó algún botón en la pantalla de configuracion
- * 
- * @return int 
- *  @li @c 0 No se presionó ningún boton
- *  @li @c 1 Botón para configurar los valores de los buffers
- *  @li @c 2 Botón para configurar el volumen de corte
- *  @li @c 3 Botón para realizar la limpieza de la bomba
- *  @li @c 4 Botón de regresar
- */
-int  tactilConfigurar();
-
-/**
- * @brief Muestra la pantalla que permite ajustar el valor de cada uno de los 3 buffers que se utilizaran
- * 
- */
-void pantallaConfigurarBuffer();
-
-/**
- * @brief Permite ajustar el valor de los buffers mediante botones y consulta si se presionó el boton de guardar
- * 
- * @return int 
- *  @li @c 0 No se presionó ningún boton
- *  @li @c 4 Botón de finalizar
- */
-int  tactilConfigurarBuffer();
+void pantallaAjustes();
 
 /**
  * @brief Muestra la pantalla que permite ajustar el valor del volumen de corte
@@ -159,6 +120,8 @@ void pantallaWIFI ();
  */
 int tactilWIFI ();
 
+void imprimirFinalizando();
+
 void imprimirError();
 
 void imprimirGuardando();
@@ -176,5 +139,3 @@ int tactilAgitador();
 void habilitoAgitador();
 
 void deshabilitoAgitador();
-
-void errorAgitador();

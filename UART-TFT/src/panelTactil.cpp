@@ -12,7 +12,8 @@
 
 //const int XP=12,XM=15,YP=33,YM=13;                                                         
 const int XP=8,XM=A2,YP=A3,YM=9; //240x320 ID=0x9341 //Para Arduino UNO y MEGA
-const int TS_LEFT=130,TS_RT=906,TS_TOP=905,TS_BOT=126;  //Valores obtenidos del ejemplo de calibración de la librería. Para arduino UNO usar const int TS_LEFT=66,TS_RT=883,TS_TOP=924,TS_BOT=108;  
+//const int TS_LEFT=130,TS_RT=906,TS_TOP=905,TS_BOT=126;  //Valores obtenidos del ejemplo de calibración de la librería. Para arduino UNO usar const int TS_LEFT=66,TS_RT=883,TS_TOP=924,TS_BOT=108;  
+const int TS_LEFT=906,TS_RT=130,TS_TOP=126,TS_BOT=905; //Para la rotacion de pantalla 3 en UNO
 TouchScreen ts = TouchScreen(XP, YP, XM, YM, 300);      //Objeto para pantalla táctil ¿porqué 300?
 
 /*

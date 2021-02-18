@@ -5,12 +5,6 @@
 #include "Arduino.h"
 
 void iniciarUart ();
-int grabarBufferA(char * val);
-int grabarBufferB(char * val);
-int grabarBufferC(char * val);
-int leerBufferA(char *val);
-int leerBufferB(char *val);
-int leerBufferC(char *val);
 int leerElectrodo(float *val);
 int calibrarBufferA();
 int calibrarBufferB();

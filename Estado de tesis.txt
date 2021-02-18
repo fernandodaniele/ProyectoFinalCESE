@@ -82,14 +82,59 @@ Se probó ejemplo de SD
 Se incorporó la parte de SD como funciones
 --Dedicado 2 h
 
+****
+Se probó openssl_server. Funciona
+Se probó station_example_main
+--Dedicado 3 h
 
---Wifi
---control del motor agitador
---Ver bien como hacer la medicion de volumen
---medicion de corriente de motores
+****
+Se probó conexion motor bomba
+--Dedicado 1 h
+
+****
+Se realizó esquemático (primera versión)
+-- 2 h
+
+Se modificó esquemático, agregando fuente y atmega328p 
+-- 4 h
+
+****
+se probó motor
+-- 2 h
+
+****
+1 h probar motor
+1 h esquematico
+2 h pcb
+
+***
+2 h pcb
+
+***
+2 h diseño pcb
+
+***
+3 h PCB (impresion, cortado de placa, planca, acido)
+1 h agujeros
+
+***
+3 horas soldado
+3 h pruebas
+
+***
+
+2 horas -- se probó modulo de ph con el electrodo. Valores obtenidos: 10 ph-1120 ; 4 ph-1660 ; 7 ph-1320; 3.3 v-1935; 0 V - 0
+
+2 h correcciones a menú de pantalla
+
+
+-- Hacer la conversión de mV a pH
+--Ver bien como hacer la medicion de volumen (¿encoder?)
 --SD (hacer el guardado en el momento que sea necesario)
---Hacer placa
 
+--Dejar pines para medicion de corriente de motores
+
+--Wifi: unir ejemplo station y openssl_server // ver si sería más facil usar bluetooth
 
 *************************************************************************************************************************************
 Lista de comandos para la comunicación entre el ESP y el atmega

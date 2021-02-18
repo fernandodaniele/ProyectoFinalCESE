@@ -22,15 +22,19 @@ void electrodo_task (void *arg)
 {
     //Configuración
     adc1_config_width(ADC_WIDTH_BIT_12);
-    adc1_config_channel_atten(ADC1_CHANNEL_0,ADC_ATTEN_MAX);
-    
+    adc1_config_channel_atten(ADC1_CHANNEL_6,ADC_ATTEN_MAX);
+    int sumaAdc = 0;
     //Bucle infinito
     while(1)
     {
         taskENTER_CRITICAL(&myMutex);
-        valorAdc = adc1_get_raw(ADC1_CHANNEL_0);
+        for (int i = 0; i < 50; i++)
+        {
+            sumaAdc = sumaAdc + adc1_get_raw(ADC1_CHANNEL_6);
+        }
         taskEXIT_CRITICAL(&myMutex);
-
+        valorAdc = sumaAdc / 50;
+        sumaAdc = 0;
         vTaskDelay(100/portTICK_PERIOD_MS);
     }
 }

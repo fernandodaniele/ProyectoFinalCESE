@@ -10,60 +10,61 @@
 
 // Variable para el estado actual
 pantalla_t pantalla;
+int opcion =0;
 
 // Función para controlar errores de la MEF (Error handler)
 void errorMEF( void )
 {
-   pantalla = PANTALLA_INICIAL;
-   pantallaInicial();
+   iniciarMEF();
 }
 
 // Función para iniciar la MEF
 void iniciarMEF( void )
 {
-   pantalla = PANTALLA_INICIAL;   // Set initial state
+   pantalla = MENU_INICIAL; 
    inicializarTFT();
+   pantallaInicial();
 }
-int opcion =0;
+
 // Función para actualizar la MEF
 void actualizarMEF( )
 {
    switch( pantalla ){
-      case PANTALLA_INICIAL:
-         opcion = tactilInicial();
+      case MENU_INICIAL:
+         opcion = consultaTactil();
     	   switch (opcion){
             case 1:
-               pantalla = MENU_CALIBRAR;
+               pantalla = MENU_ELEGIR_BUFFER;
                pantallaElegirBuffer();
                break;
             case 2:
-               pantalla = PANTALLA_TITULACION;
+               pantalla = MENU_TITULACION;
                pantallaMedir();
                if(iniciarTitulacion()){   //envia señal para iniciar la titulacion
-                  Serial.println("Se inicio titulacion");
+                  //Serial.println("Se inicio titulacion");
                }
                else
                {
                   //acá ver que hacer en caso de error
-                  Serial.println("Error en el inicio de titulacion");
+                  //Serial.println("Error en el inicio de titulacion");
                }
                break;
             case 3:
-               pantalla = MENU_CONFIGURACION;
-               pantallaConfigurar();
+               pantalla = MENU_AJUSTES;
+               pantallaAjustes();
                break;
             case 4:
-               pantalla = PANTALLA_CONEXION;
+               pantalla = MENU_CONEXION;
                pantallaWIFI ();
                break;
             default:
-               pantalla = PANTALLA_INICIAL;
+               pantalla = MENU_INICIAL;
                break;
     	   }
     	   break;
 
-      case MENU_CALIBRAR:
-         opcion = tactilElegirBuffer();
+      case MENU_ELEGIR_BUFFER:
+         opcion = consultaTactil();
          switch (opcion){
             case 1:
                pantalla = MENU_CALIBRAR_A;
@@ -78,11 +79,11 @@ void actualizarMEF( )
                pantallaCalibrar ();
                break;
             case 4:
-               pantalla = PANTALLA_INICIAL;
+               pantalla = MENU_INICIAL;
                pantallaInicial();
                break;
             default:
-               pantalla = MENU_CALIBRAR;
+               pantalla = MENU_ELEGIR_BUFFER;
                break;
     	   }
     	   break;
@@ -90,12 +91,12 @@ void actualizarMEF( )
       case MENU_CALIBRAR_A:
          opcion = tactilCalibrar();
     	   if(opcion==3){
-            pantallaCalibrarA();
-            pantalla = MENU_CALIBRAR;
+            calibrarBufferA();
+            pantalla = MENU_ELEGIR_BUFFER;
             pantallaElegirBuffer();
     	   }
          else if(opcion==4){
-            pantalla = MENU_CALIBRAR;
+            pantalla = MENU_ELEGIR_BUFFER;
             pantallaElegirBuffer();
     	   }
     	   break;
@@ -103,12 +104,12 @@ void actualizarMEF( )
       case MENU_CALIBRAR_B:
          opcion =  tactilCalibrar();
     	   if(opcion==3){
-            pantallaCalibrarB();
-            pantalla = MENU_CALIBRAR;
+            calibrarBufferB();
+            pantalla = MENU_ELEGIR_BUFFER;
             pantallaElegirBuffer();
     	   }
          else if(opcion==4){
-            pantalla = MENU_CALIBRAR;
+            pantalla = MENU_ELEGIR_BUFFER;
             pantallaElegirBuffer();
     	   }
     	   break;
@@ -116,97 +117,84 @@ void actualizarMEF( )
       case MENU_CALIBRAR_C:
          opcion =  tactilCalibrar();
     	   if(opcion==3){
-            pantallaCalibrarC();
-            pantalla = MENU_CALIBRAR;
+            calibrarBufferC();
+            pantalla = MENU_ELEGIR_BUFFER;
             pantallaElegirBuffer();
     	   }
          else if(opcion==4){
-            pantalla = MENU_CALIBRAR;
+            pantalla = MENU_ELEGIR_BUFFER;
             pantallaElegirBuffer();
     	   }
     	   break;
 
-      case PANTALLA_TITULACION:
+      case MENU_TITULACION:
          opcion = tactilMedir();
     	   if(opcion==4){
             if(finalizarTitulacion()){
-               Serial.println("Se finalizo titulacion");
+              // Serial.println("Se finalizo titulacion");
             }
             else
             {
-               Serial.println("Error en finalizar titulacion");
+              // Serial.println("Error en finalizar titulacion");
             }
-            pantalla = PANTALLA_INICIAL;
+            pantalla = MENU_INICIAL;
             pantallaInicial();
     	   }
     	   break;
 
-      case MENU_CONFIGURACION:
-         opcion = tactilConfigurar();
+      case MENU_AJUSTES:
+         opcion = consultaTactil();
          switch (opcion){   
             case 1:
-               pantalla = MENU_CONFIGURACION_BUFFER;
-               pantallaConfigurarBuffer();
-               break;
-            case 2:
                pantalla = MENU_VOLUMEN;
                pantallaVolumenCorte();
                break;
-            case 3:
+            case 2:
                pantalla = MENU_LIMPIEZA;
                pantallaLimpieza();
                if(iniciarLimpieza()){
-                  Serial.println("Se inicio limpieza");
+                 // Serial.println("Se inicio limpieza");
                }
                else
                {
-                  Serial.println("Error en inicio limpieza");
+                 // Serial.println("Error en inicio limpieza");
                }
                break;
-            case 4:
+            case 3:
                pantalla = MENU_AGITADOR;
                pantallaAgitador();
                break;
-            case 5:
-               pantalla = PANTALLA_INICIAL;
+            case 4:
+               pantalla = MENU_INICIAL;
                pantallaInicial();
                break;
             default:
-               pantalla = MENU_CONFIGURACION;
+               pantalla = MENU_AJUSTES;
                break;
     	   }
          break;
-
-      case MENU_CONFIGURACION_BUFFER:
-         opcion = tactilConfigurarBuffer();
-         if(opcion==4){
-            //Enviar al ESP los valores de los buffers configurados
-            pantalla = MENU_CONFIGURACION;
-            pantallaConfigurar();
-         }
-    	   break;
 
       case MENU_VOLUMEN:
          opcion = tactilVolumenCorte();
     	   if(opcion==4){
             //Acá enviar al ESP el valor del volumen de corte
-            pantalla = MENU_CONFIGURACION;
-            pantallaConfigurar();
+            pantalla = MENU_AJUSTES;
+            pantallaAjustes();
     	   }
     	   break;
 
       case MENU_LIMPIEZA:
          opcion = tactilLimpieza();
     	   if(opcion==4){
-            pantalla = MENU_CONFIGURACION;
+            pantalla = MENU_AJUSTES;
             if(finalizarLimpieza()){
-               Serial.println("Se finalizo limpieza");
+              // Serial.println("Se finalizo limpieza");
             }
             else
             {
-               Serial.println("Error en finalizar limpieza");
+               //Serial.println("Error en finalizar limpieza");
             }
-            pantallaConfigurar();
+            pantallaAjustes();
     	   }
     	   break;
 
@@ -220,10 +208,10 @@ void actualizarMEF( )
                }
                else
                {
-                  errorAgitador();
+                  imprimirError();
                }
-            pantalla = MENU_CONFIGURACION;
-            pantallaConfigurar();
+            pantalla = MENU_AJUSTES;
+            pantallaAjustes();
             break;
          case 2:
                if(deshabilitarAgitador()){
@@ -231,24 +219,24 @@ void actualizarMEF( )
                }
                else
                {
-                  errorAgitador();
+                  imprimirError();
                }
-            pantalla = MENU_CONFIGURACION;
-            pantallaConfigurar();
+            pantalla = MENU_AJUSTES;
+            pantallaAjustes();
             break;
          case 4:
-            pantalla = MENU_CONFIGURACION;
-            pantallaConfigurar();
+            pantalla = MENU_AJUSTES;
+            pantallaAjustes();
             break;
          default:
             break;
          }
     	   break;
 
-      case PANTALLA_CONEXION:
+      case MENU_CONEXION:
          opcion = tactilWIFI();
     	   if(opcion==4){
-            pantalla = PANTALLA_INICIAL;
+            pantalla = MENU_INICIAL;
             pantallaInicial();
     	   }
          break;
